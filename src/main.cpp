@@ -1,6 +1,4 @@
 #include "main.hpp"
-#include <SDL2/SDL.h>
-#include <iostream>
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 640;
@@ -63,7 +61,7 @@ bool init() {
 }
 
 bool loadMedia() {
-  const char *relativePath = "assets/hello_world.bmp";
+  const char *relativePath = "resources/hello_world.bmp";
   gHelloWorld = SDL_LoadBMP(relativePath);
   if (gHelloWorld == NULL) {
     printf("Unable to load image %s! SDL error: %s\n", relativePath,
@@ -82,4 +80,13 @@ void close() {
   gWindow = nullptr;
 
   SDL_Quit();
+}
+
+SDL_Surface *loadSurface(std::string path) {
+  SDL_Surface *loaded = SDL_LoadBMP(path.c_str());
+  if (loaded == nullptr) {
+    std::cout << "Unable to load image " << path
+              << "! SDL Error: " << SDL_GetError() << std::endl;
+  }
+  return loaded;
 }
