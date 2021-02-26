@@ -1,7 +1,7 @@
 #include "main.hpp"
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 640;
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 600;
 
 enum KeyPressSurfaces {
   KEY_PRESS_SURFACE_DEFAULT,
@@ -60,7 +60,12 @@ int main(int argc, char *argv[]) {
 
     // applies image to surface.
     // Draws to the back buffer.
-    SDL_BlitSurface(gCurrentSurface, NULL, gScreenSurface, NULL);
+    SDL_Rect stretchRect;
+    stretchRect.x = 0;
+    stretchRect.y = 0;
+    stretchRect.w = SCREEN_WIDTH;
+    stretchRect.h = SCREEN_HEIGHT;
+    SDL_BlitScaled(gCurrentSurface, NULL, gScreenSurface, &stretchRect);
 
     // update front buffer, the thing the user sees
     SDL_UpdateWindowSurface(gWindow);
@@ -124,5 +129,15 @@ SDL_Surface *loadSurface(std::string path) {
     std::cout << "Unable to load image " << path
               << "! SDL Error: " << SDL_GetError() << std::endl;
   }
-  return loaded;
+
+  // I assume convert surface will fail gracefully if `loaded` was null.
+  SDL_Surface *optimizedSurface = SDL_ConvertSurface(loaded, gScreenSurface->format, 0);
+  if (optimizedSurface == nullptr) {
+    std::cout << "Unable to optimize image " << path
+              << "! SDL Error: " << SDL_GetError() << std::endl;
+  } else {
+    SDL_FreeSurface(loaded);
+  }
+
+  return optimizedSurface;
 }
