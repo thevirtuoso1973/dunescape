@@ -89,6 +89,13 @@ bool init() {
     return false;
   }
 
+  const int imgFlags = IMG_INIT_PNG;
+  if (!(IMG_Init(imgFlags) & imgFlags)) { // check that we got back desired flag
+    printf("SDL_image could not initialize! SDL_image error %s\n",
+           SDL_GetError());
+    return false;
+  }
+
   gScreenSurface = SDL_GetWindowSurface(gWindow);
 
   return true;
@@ -124,14 +131,15 @@ void close() {
 }
 
 SDL_Surface *loadSurface(std::string path) {
-  SDL_Surface *loaded = SDL_LoadBMP(path.c_str());
+  SDL_Surface *loaded = IMG_Load(path.c_str());
   if (loaded == nullptr) {
     std::cout << "Unable to load image " << path
               << "! SDL Error: " << SDL_GetError() << std::endl;
   }
 
   // I assume convert surface will fail gracefully if `loaded` was null.
-  SDL_Surface *optimizedSurface = SDL_ConvertSurface(loaded, gScreenSurface->format, 0);
+  SDL_Surface *optimizedSurface =
+      SDL_ConvertSurface(loaded, gScreenSurface->format, 0);
   if (optimizedSurface == nullptr) {
     std::cout << "Unable to optimize image " << path
               << "! SDL Error: " << SDL_GetError() << std::endl;
