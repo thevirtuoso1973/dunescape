@@ -4,8 +4,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
-#include <string>
 #include <iostream>
+#include <string>
 
 class Game {
 public:
@@ -25,6 +25,7 @@ public:
 private:
   SDL_Window *window;
   SDL_Renderer *renderer;
+  TTF_Font *font;
 
   int screen_width;
   int screen_height;
