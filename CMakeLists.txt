@@ -25,7 +25,7 @@ include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 add_executable(${PROJECT_NAME} ${sources} ${data})
 
 # Just for example add some compiler flags.
-target_compile_options(${PROJECT_NAME} PUBLIC -Wall)
+target_compile_options(${PROJECT_NAME} PUBLIC -Wall -g)
 
 # This allows to include files relative to the root of the src directory with a <> pair
 target_include_directories(${PROJECT_NAME} PUBLIC src)

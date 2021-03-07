@@ -7,6 +7,7 @@
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
+const Uint32 RENDERER_TYPE = SDL_RENDERER_SOFTWARE;
 
 enum KeyPressSurfaces {
   KEY_PRESS_SURFACE_DEFAULT,
@@ -86,7 +87,9 @@ bool init() {
     return false;
   }
 
-  gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
+  // NOTE: SDL_RENDERER_ACCELERATED does not work through windows WSL
+  // although I should probably use it when working through native windows
+  gRenderer = SDL_CreateRenderer(gWindow, -1, RENDERER_TYPE);
   if (gRenderer == nullptr) {
     printf("Renderer could not be created! SDL error: %s\n", SDL_GetError());
     return false;
