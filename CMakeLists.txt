@@ -18,7 +18,8 @@ include(FindPkgConfig)
 
 find_package(SDL2 REQUIRED)
 pkg_search_module(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
-include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
+pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${SDL2TTF_INCLUDE_DIRS})
 
 # The data is just added to the executable, because in some IDEs (QtCreator)
 # files are invisible when they are not explicitly part of the project.
@@ -30,7 +31,7 @@ target_compile_options(${PROJECT_NAME} PUBLIC -Wall -g)
 # This allows to include files relative to the root of the src directory with a <> pair
 target_include_directories(${PROJECT_NAME} PUBLIC src)
 
-target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES})
 
 # This copies all resource files in the build directory.
 # We need this, because we want to work with paths relative to the executable.
