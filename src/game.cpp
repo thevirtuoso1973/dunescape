@@ -1,9 +1,8 @@
 #include "game.hpp"
 #include "textureManager.hpp"
 
-// NOTE: SDL_RENDERER_ACCELERATED does not work through windows WSL
-// although I should probably use it when working through native windows
-const Uint32 RENDERER_TYPE = SDL_RENDERER_SOFTWARE;
+// NOTE: use software renderer instead if this doesn't work
+const Uint32 RENDERER_TYPE = SDL_RENDERER_ACCELERATED;
 
 SDL_Texture *playerTex;
 
