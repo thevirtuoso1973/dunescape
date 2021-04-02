@@ -1,10 +1,11 @@
 #include "game.hpp"
 #include "textureManager.hpp"
+#include "gameObject.hpp"
 
 // NOTE: use software renderer instead if this doesn't work
 const Uint32 RENDERER_TYPE = SDL_RENDERER_ACCELERATED;
 
-SDL_Texture *playerTex;
+GameObject *player;
 
 Game::Game() {}
 Game::~Game() {}
@@ -44,10 +45,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
     return;
   }
 
-  playerTex = TextureManager::LoadTextureText(font, "@", {0, 0, 0}, renderer);
-  if (playerTex == nullptr) {
-    printf("Couldn't load player.");
-  }
+  player = new GameObject(
+    TextureManager::LoadTextureText(font, "@", {0, 0, 0}, renderer), renderer, 0, 0);
 
   isRunning = true;
 }
@@ -65,22 +64,18 @@ void Game::handleEvents() {
   }
 }
 
-void Game::update() { count++; }
+void Game::update() {
+  player->Update();
+}
 
 void Game::render() {
   SDL_RenderClear(renderer);
-  SDL_Rect rect;
-  rect.x = count % screen_width;
-  rect.w = 50;
-  rect.h = 50;
-  SDL_RenderCopy(renderer, playerTex, nullptr, &rect);
+  player->Render();
+
   SDL_RenderPresent(renderer);
 }
 
 void Game::clean() {
-  SDL_DestroyTexture(playerTex);
-  playerTex = nullptr;
-
   SDL_DestroyWindow(window);
   window = nullptr;
 

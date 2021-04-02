@@ -3,10 +3,7 @@
 
 // TODO: lesson 8
 // TODO: or continue with
-// https://www.youtube.com/watch?v=jzasDqPmtPI&list=PLhfAbcv9cehhkG7ZQK0nfIGJC_C-wSLrx&index=6
-
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
+// https://www.youtube.com/watch?v=1eaxE_waDNc&list=PLhfAbcv9cehhkG7ZQK0nfIGJC_C-wSLrx&index=8
 
 const int FPS = 60;
 const int frameDelay = 1000 / FPS;

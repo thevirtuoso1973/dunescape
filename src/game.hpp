@@ -30,7 +30,6 @@ private:
   int screen_width;
   int screen_height;
 
-  int count;
   bool isRunning = false;
 };
 
