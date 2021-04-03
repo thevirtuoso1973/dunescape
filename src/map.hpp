@@ -5,7 +5,7 @@
 #include "main.hpp"
 #include <array>
 
-typedef std::array<std::array<char, SCREEN_WIDTH / 32>, SCREEN_HEIGHT / 32> mapGrid;
+using mapGrid = std::array<std::array<char, SCREEN_WIDTH / 32>, SCREEN_HEIGHT / 32>;
 
 class Map {
 public:

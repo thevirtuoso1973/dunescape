@@ -1,12 +1,15 @@
 #include "game.hpp"
-#include "textureManager.hpp"
+#include "ecs.hpp"
 #include "gameObject.hpp"
+#include "gridPositionComponent.hpp"
 #include "map.hpp"
+#include "textureComponent.hpp"
+#include "textureManager.hpp"
 
 // NOTE: use software renderer instead if this doesn't work
 const Uint32 RENDERER_TYPE = SDL_RENDERER_ACCELERATED;
 
-GameObject *player;
+Manager manager;
 Map *map;
 
 SDL_Renderer *Game::renderer = nullptr;
@@ -50,9 +53,13 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
     return;
   }
 
-  player = new GameObject(
-    TextureManager::LoadTextureText("@", {0, 0, 0}), 0, 0);
   map = new Map();
+
+  auto &player(manager.addEntity());
+  player.addComponent<GridPositionComponent>(SCREEN_HEIGHT / 32,
+                                             SCREEN_WIDTH / 32);
+  SDL_Color black = {0, 0, 0};
+  player.addComponent<TextureComponent>("@", black);
 
   isRunning = true;
 }
@@ -70,15 +77,13 @@ void Game::handleEvents() {
   }
 }
 
-void Game::update() {
-  player->Update();
-}
+void Game::update() { manager.update(); }
 
 void Game::render() {
   SDL_RenderClear(renderer);
 
   map->DrawMap();
-  player->Render();
+  manager.draw();
 
   SDL_RenderPresent(renderer);
 }
