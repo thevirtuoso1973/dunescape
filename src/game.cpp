@@ -40,7 +40,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
     return;
   }
 
-  SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+  SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
 
   if (TTF_Init() == -1) {
     printf("SDL_ttf couldn't init. error: %s\n", TTF_GetError());
@@ -58,8 +58,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   auto &player(manager.addEntity());
   player.addComponent<GridPositionComponent>(SCREEN_HEIGHT / 32,
                                              SCREEN_WIDTH / 32);
-  SDL_Color black = {0, 0, 0};
-  player.addComponent<TextureComponent>("@", black);
+  SDL_Color white = {0xFF, 0xFF, 0xFF};
+  player.addComponent<TextureComponent>("@", white);
 
   isRunning = true;
 }
