@@ -7,6 +7,8 @@ const Uint32 RENDERER_TYPE = SDL_RENDERER_ACCELERATED;
 
 GameObject *player;
 
+SDL_Renderer *Game::renderer = nullptr;
+
 Game::Game() {}
 Game::~Game() {}
 
@@ -46,7 +48,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   }
 
   player = new GameObject(
-    TextureManager::LoadTextureText(font, "@", {0, 0, 0}, renderer), renderer, 0, 0);
+    TextureManager::LoadTextureText(font, "@", {0, 0, 0}), 0, 0);
 
   isRunning = true;
 }

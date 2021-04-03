@@ -6,11 +6,11 @@
 
 class TextureManager {
 public:
-  static SDL_Texture *LoadTexture(const char *filename, SDL_Renderer *ren);
+  static SDL_Texture *LoadTexture(const char *filename);
 
   //  returns the text as a texture
   static SDL_Texture *LoadTextureText(TTF_Font *font, const char *text,
-                                      SDL_Color color, SDL_Renderer *ren);
+                                      SDL_Color color);
 };
 
 #endif // __TEXTUREMANAGER_H_
