@@ -51,8 +51,8 @@ void Map::LoadMap(const mapGrid newMapArr) {
 }
 
 void Map::DrawMap() {
-  for (int row = 0; row < mapArray.size(); ++row) {
-    for (int col = 0; col < mapArray[0].size(); ++col) {
+  for (unsigned row = 0; row < mapArray.size(); ++row) {
+    for (unsigned col = 0; col < mapArray[0].size(); ++col) {
       char type = mapArray[row][col];
 
       dest.x = col * 32;

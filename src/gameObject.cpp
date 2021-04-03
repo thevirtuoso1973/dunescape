@@ -26,8 +26,8 @@ void GameObject::Render() {
     srcRect.x = 0;
     srcRect.y = 0;
 
-    destRect.h = srcRect.h * 2;
-    destRect.w = srcRect.w * 2;
+    destRect.h = srcRect.h;
+    destRect.w = srcRect.w;
     destRect.x = (xpos + count) % SCREEN_WIDTH;
     destRect.y = (ypos + count) % SCREEN_HEIGHT;
 
