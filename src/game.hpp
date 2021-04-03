@@ -23,10 +23,10 @@ public:
   bool running() { return isRunning; }
 
   static SDL_Renderer *renderer;
+  static TTF_Font *font;
 
 private:
   SDL_Window *window;
-  TTF_Font *font;
 
   int screen_width;
   int screen_height;

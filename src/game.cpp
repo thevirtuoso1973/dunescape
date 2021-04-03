@@ -1,13 +1,16 @@
 #include "game.hpp"
 #include "textureManager.hpp"
 #include "gameObject.hpp"
+#include "map.hpp"
 
 // NOTE: use software renderer instead if this doesn't work
 const Uint32 RENDERER_TYPE = SDL_RENDERER_ACCELERATED;
 
 GameObject *player;
+Map *map;
 
 SDL_Renderer *Game::renderer = nullptr;
+TTF_Font *Game::font = nullptr;
 
 Game::Game() {}
 Game::~Game() {}
@@ -48,7 +51,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   }
 
   player = new GameObject(
-    TextureManager::LoadTextureText(font, "@", {0, 0, 0}), 0, 0);
+    TextureManager::LoadTextureText("@", {0, 0, 0}), 0, 0);
+  map = new Map();
 
   isRunning = true;
 }
@@ -72,6 +76,8 @@ void Game::update() {
 
 void Game::render() {
   SDL_RenderClear(renderer);
+
+  map->DrawMap();
   player->Render();
 
   SDL_RenderPresent(renderer);

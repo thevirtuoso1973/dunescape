@@ -9,8 +9,9 @@ public:
   static SDL_Texture *LoadTexture(const char *filename);
 
   //  returns the text as a texture
-  static SDL_Texture *LoadTextureText(TTF_Font *font, const char *text,
-                                      SDL_Color color);
+  static SDL_Texture *LoadTextureText(const char *text, SDL_Color color);
+
+  static void Draw(SDL_Texture *texture, SDL_Rect src, SDL_Rect dest);
 };
 
 #endif // __TEXTUREMANAGER_H_
