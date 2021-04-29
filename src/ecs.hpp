@@ -1,6 +1,7 @@
 #ifndef __ECS_H_
 #define __ECS_H_
 
+#include <SDL2/SDL.h>
 #include <algorithm>
 #include <array>
 #include <bitset>
@@ -36,15 +37,15 @@ public:
   virtual ~Component() {}
 
   virtual void init() {}
-  virtual void update() {}
+  virtual void update(const std::vector<SDL_Event> &events) {}
   virtual void draw() {}
 };
 
 class Entity {
 public:
-  void update() {
+  void update(const std::vector<SDL_Event> &events) {
     for (auto &c : components)
-      c->update();
+      c->update(events);
   }
 
   void draw() {
@@ -87,9 +88,10 @@ private:
 
 class Manager {
 public:
-  void update() {
-    for (auto &e : entities)
-      e->update();
+  void update(const std::vector<SDL_Event> &events) {
+    for (auto &e : entities) {
+      e->update(events);
+    }
   }
 
   void draw() {

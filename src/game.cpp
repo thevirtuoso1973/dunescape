@@ -64,20 +64,22 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   isRunning = true;
 }
 
-void Game::handleEvents() {
+// handles events and updates
+void Game::update() {
+  std::vector<SDL_Event> events;
   SDL_Event e;
-  SDL_PollEvent(&e);
 
-  switch (e.type) {
-  case SDL_QUIT:
-    isRunning = false;
-    break;
-  default:
-    break;
+  while (SDL_PollEvent(&e)) {
+    events.emplace_back(e);
   }
-}
 
-void Game::update() { manager.update(); }
+  if (std::any_of(events.begin(), events.end(),
+                  [](SDL_Event event) { return event.type == SDL_QUIT; })) {
+    isRunning = false;
+  }
+
+  manager.update(events);
+}
 
 void Game::render() {
   SDL_RenderClear(renderer);
