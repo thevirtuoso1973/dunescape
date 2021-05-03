@@ -15,8 +15,8 @@ public:
   TextureComponent(const char *text, SDL_Color color) {
     this->texture = TextureManager::LoadTextureText(text, color);
 
-    srcRect.h = 32;
-    srcRect.w = 32;
+    srcRect.h = Tile::tileLength;
+    srcRect.w = Tile::tileLength;
     srcRect.x = 0;
     srcRect.y = 0;
   }

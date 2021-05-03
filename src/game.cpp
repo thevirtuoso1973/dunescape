@@ -1,5 +1,4 @@
 #include "game.hpp"
-#include "gameObject.hpp"
 #include "gridPositionComponent.hpp"
 #include "textureComponent.hpp"
 #include "textureManager.hpp"
@@ -42,7 +41,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
     return;
   }
 
-  font = TTF_OpenFont("resources/FiraCode-Regular.ttf", 24);
+  font = TTF_OpenFont("resources/FiraCode-Regular.ttf", 32);
   if (font == nullptr) {
     printf("Couldn't open font.");
     return;
@@ -51,8 +50,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
   map = new Map();
 
   auto &player(manager.addEntity());
-  player.addComponent<GridPositionComponent>(SCREEN_HEIGHT / 32,
-                                             SCREEN_WIDTH / 32, 1, 1);
+  player.addComponent<GridPositionComponent>(SCREEN_HEIGHT / Tile::tileLength,
+                                             SCREEN_WIDTH / Tile::tileLength, 1, 1);
   SDL_Color white = {0xFF, 0xFF, 0xFF};
   player.addComponent<TextureComponent>("@", white);
 

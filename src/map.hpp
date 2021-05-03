@@ -6,6 +6,9 @@
 
 class Tile {
 public:
+  // length of a cell/square/tile in the game
+  static const int tileLength = 32;
+
   Tile(SDL_Texture *texture = nullptr, bool blocked = false,
        bool blocksSight = false, std::string label = "UNLABELLED")
       : _texture(texture), _blocked(blocked), _blocksSight(blocksSight),
@@ -23,7 +26,8 @@ public:
 };
 
 using mapTileGrid =
-    std::array<std::array<Tile, SCREEN_WIDTH / 32>, SCREEN_HEIGHT / 32>;
+    std::array<std::array<Tile, SCREEN_WIDTH / Tile::tileLength>,
+               SCREEN_HEIGHT / Tile::tileLength>;
 
 class Map {
 public:
@@ -37,12 +41,12 @@ public:
   std::string labelAt(int i, int j) const;
 
 private:
-  SDL_Rect src;
-
   // this is prob better than storing a texture for each tile, for space reasons
   SDL_Texture *dirt, *grass, *water, *wall;
 
   mapTileGrid mapArray;
+
+  void generateRandomRooms();
 };
 
 #endif // __MAP_H_
