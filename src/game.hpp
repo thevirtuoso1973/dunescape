@@ -1,6 +1,8 @@
 #ifndef __GAME_H_
 #define __GAME_H_
 
+#include "ecs.hpp"
+#include "map.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
@@ -26,6 +28,10 @@ public:
 
 private:
   SDL_Window *window;
+
+  Map *map;
+
+  Manager manager;
 
   int screen_width;
   int screen_height;

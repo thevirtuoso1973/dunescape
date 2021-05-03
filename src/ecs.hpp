@@ -1,6 +1,7 @@
 #ifndef __ECS_H_
 #define __ECS_H_
 
+#include "map.hpp"
 #include <SDL2/SDL.h>
 #include <algorithm>
 #include <array>
@@ -37,15 +38,15 @@ public:
   virtual ~Component() {}
 
   virtual void init() {}
-  virtual void update(const std::vector<SDL_Event> &events) {}
+  virtual void update(const std::vector<SDL_Event> &events, Map &map) {}
   virtual void draw() {}
 };
 
 class Entity {
 public:
-  void update(const std::vector<SDL_Event> &events) {
+  void update(const std::vector<SDL_Event> &events, Map &map) {
     for (auto &c : components)
-      c->update(events);
+      c->update(events, map);
   }
 
   void draw() {
@@ -88,9 +89,9 @@ private:
 
 class Manager {
 public:
-  void update(const std::vector<SDL_Event> &events) {
+  void update(const std::vector<SDL_Event> &events, Map &map) {
     for (auto &e : entities) {
-      e->update(events);
+      e->update(events, map);
     }
   }
 

@@ -30,7 +30,7 @@ public:
       destRect.x = srcRect.w * gridComponent.col();
       destRect.y = srcRect.h * gridComponent.row();
 
-      SDL_RenderDrawRect(Game::renderer, &destRect);
+      SDL_RenderFillRect(Game::renderer, &destRect); // clears the background of the texture
       SDL_RenderCopy(Game::renderer, texture, &srcRect, &destRect);
     }
   }

@@ -1,16 +1,11 @@
 #include "game.hpp"
-#include "ecs.hpp"
 #include "gameObject.hpp"
 #include "gridPositionComponent.hpp"
-#include "map.hpp"
 #include "textureComponent.hpp"
 #include "textureManager.hpp"
 
 // NOTE: use software renderer instead if this doesn't work
 const Uint32 RENDERER_TYPE = SDL_RENDERER_ACCELERATED;
-
-Manager manager;
-Map *map;
 
 SDL_Renderer *Game::renderer = nullptr;
 TTF_Font *Game::font = nullptr;
@@ -57,7 +52,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
 
   auto &player(manager.addEntity());
   player.addComponent<GridPositionComponent>(SCREEN_HEIGHT / 32,
-                                             SCREEN_WIDTH / 32);
+                                             SCREEN_WIDTH / 32, 1, 1);
   SDL_Color white = {0xFF, 0xFF, 0xFF};
   player.addComponent<TextureComponent>("@", white);
 
@@ -78,7 +73,7 @@ void Game::update() {
     isRunning = false;
   }
 
-  manager.update(events);
+  manager.update(events, *map);
 }
 
 void Game::render() {
