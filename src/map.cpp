@@ -51,12 +51,12 @@ void Map::DrawMap() {
 }
 
 bool Map::blockedAt(int i, int j) const {
-  return i < 0 || i >= mapArray.size() || j < 0 || j >= mapArray[0].size() ||
+  return i < 0 || i >= int(mapArray.size()) || j < 0 || j >= int(mapArray[0].size()) ||
          mapArray[i][j]._blocked;
 }
 
 std::string Map::labelAt(int i, int j) const {
-  return i >= 0 && i < mapArray.size() && j >= 0 && j < mapArray[0].size()
+  return i >= 0 && i < int(mapArray.size()) && j >= 0 && j < int(mapArray[0].size())
              ? mapArray[i][j]._label
              : "OUT_OF_BOUNDS";
 }
